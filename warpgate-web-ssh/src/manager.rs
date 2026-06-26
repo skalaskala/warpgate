@@ -41,6 +41,8 @@ impl WebSshClientManager {
         target_name: &str,
         remote_address: Option<SocketAddr>,
     ) -> Result<Uuid, WarpgateError> {
+        // Forcefully disable this feature for now
+        return Err(WarpgateError::SessionLimitReached);
         {
             let sessions = self.sessions.lock().await;
             let user_session_count = sessions.values().filter(|s| s.user_id() == user_id).count();
